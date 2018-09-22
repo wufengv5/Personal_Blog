@@ -1,0 +1,36 @@
+{% extends 'web/base.html' %}
+
+{% block title %}
+    分类展示
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-11">
+    <h1 class="page-header">{{ category.name }}&nbsp;<span class="badge">{{ articles.count }}</span></h1>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">标题</span></th>
+                <th class="hidden-sm"><span class="glyphicon glyphicon-tag"></span> <span class="visible-lg">标签</span></th>
+                <th class="hidden-sm"><span class="glyphicon glyphicon-comment"></span> <span class="visible-lg">评论</span></th>
+                <th><span class="glyphicon glyphicon-time"></span> <span class="visible-lg">日期</span></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for article in articles %}
+                <tr>
+                <td class="article-title"><a href="{% url 'web:show_article' article.id %}">{{ article.title }}</a></td>
+                <td class="hidden-sm"></td>
+                <td class="hidden-sm">0</td>
+                <td>{{ article.data_publish|date:'Y-m-d' }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+    </div>
+{% endblock %}

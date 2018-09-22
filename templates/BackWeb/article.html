@@ -1,0 +1,73 @@
+{% extends 'BackWeb/base/base2.html' %}
+{% load static %}
+{% block content %}
+    <form action="/Article/checkAll" method="post" >
+        <h1 class="page-header">操作</h1>
+        <ol class="breadcrumb">
+          <li><a href="{% url 'back_web:add_article' %}">增加文章</a></li>
+        </ol>
+        <h1 class="page-header">管理
+            <span class="badge">
+                {{ articles_list.count }}
+            </span>
+        </h1>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th><span class="glyphicon glyphicon-th-large"></span> <span class="visible-lg">选择</span></th>
+                <th><span class="glyphicon glyphicon-file"></span> <span class="visible-lg">标题</span></th>
+                <th><span class="glyphicon glyphicon-list"></span> <span class="visible-lg">栏目</span></th>
+                <th class="hidden-sm"><span class="glyphicon glyphicon-tag"></span> <span class="visible-lg">标签</span></th>
+                <th class="hidden-sm"><span class="glyphicon glyphicon-comment"></span> <span class="visible-lg">评论</span></th>
+                <th><span class="glyphicon glyphicon-time"></span> <span class="visible-lg">日期</span></th>
+                <th><span class="glyphicon glyphicon-pencil"></span> <span class="visible-lg">操作</span></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for article in articles %}
+              <tr>
+                <td><input type="checkbox" class="input-control" name="checkbox[]" value="" /></td>
+                <td class="article-title"><a href="{% url 'back_web:show_article' article.id %}">{{ article.title }}</a></td>
+                <td>{{ article.category.name }}</td>
+                <td class="hidden-sm">{{ article.tag }}</td>
+                <td class="hidden-sm">0</td>
+                <td>{{ article.data_publish|date:'Y-m-d H:i:s' }}</td>
+                <td><a href="{% url 'back_web:update_article' article.id %}">修改</a> <a href="{% url 'back_web:del_article'  article.id  %}">删除</a></td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <footer class="message_footer">
+          <nav>
+            <div class="btn-toolbar operation" role="toolbar">
+              <div class="btn-group" role="group"> <a class="btn btn-default" onClick="select()">全选</a> <a class="btn btn-default" onClick="reverse()">反选</a> <a class="btn btn-default" onClick="noselect()">不选</a> </div>
+              <div class="btn-group" role="group">
+                <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="删除全部选中" name="checkbox_delete">删除</button>
+              </div>
+            </div>
+            <ul class="pagination pagenav">
+              <li class="disabled">
+                  {% if page.has_previous %}
+                  <a aria-label="Previous" href="{% url  'back_web:article' %}?page={{ page.previous_page_number }}">
+                      <span aria-hidden="true">&laquo;</span>
+                  </a>
+                  {% endif %}
+              </li>
+                {% for i in page.paginator.page_range %}
+                    <li><a href="{% url 'back_web:article' %}?page={{ i }}">{{ i }}</a></li>
+                {% endfor %}
+              <li>
+                  {% if page.has_next %}
+                  <a href="{% url  'back_web:article' %}?page={{ page.next_page_number }}" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                  </a>
+                  {% endif %}
+              </li>
+            </ul>
+          </nav>
+        </footer>
+      </form>
+
+{% endblock %}

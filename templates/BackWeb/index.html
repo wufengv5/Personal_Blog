@@ -1,0 +1,23 @@
+
+{% extends 'BackWeb/base/base2.html' %}
+{% load static %}
+{% block title %}主页{% endblock %}
+{% block content %}
+    <h1 class="page-header">信息总览</h1>
+      <div class="row placeholders">
+        <div class="col-xs-6 col-sm-3 placeholder">
+          <h4><a href="{% url 'back_web:article' %}">文章</a></h4>
+          <span class="text-muted">{{ articles.count }}条</span> </div>
+        <div class="col-xs-6 col-sm-3 placeholder">
+          <h4><a href="{% url 'back_web:comment' %}">评论</a></h4>
+          <span class="text-muted">{{ comments.count }}条</span> </div>
+        <div class="col-xs-6 col-sm-3 placeholder">
+          <h4><a href="{% url 'back_web:notice' %}">公告</a></h4>
+          <span class="text-muted">{{ notices.count }} 条</span> </div>
+        <div class="col-xs-6 col-sm-3 placeholder">
+          <h4>访问量</h4>
+          <span class="text-muted">0</span> </div>
+      </div>
+
+
+{% endblock %}

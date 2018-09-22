@@ -1,0 +1,71 @@
+{% extends 'web/base.html' %}
+{% load static %}
+{% block title %}展示文章{% endblock %}
+
+{% block content %}
+    <br>
+    <div class="text-center">
+    <div class="col-md-10 col-md-offset-1">
+        <header>
+            <p><h1>题目：{{ article.title }}</h1></p><br>
+            <p>作者：{{ user.username }}</p><br>
+        </header>
+    <link rel="stylesheet" href="{% static 'editor/css/editormd.preview.css' %}">
+    <div id="editormd-view">
+        <textarea id="append-test" style="display: none">
+            {{ article.content }}
+            <p>![](/media/{{ article.img }})</p>
+        </textarea>
+    </div>
+    </div>
+    <div>
+    <div class="col-md-4 col-md-offset-2">
+        <h3><span class="glyphicon glyphicon-send">发表评论</span></h3>
+        <form action='{% url 'web:add_comment' article.id %}' method="post" class="form-horizontal">
+            <p>游客姓名：<input type="text" name="observer"></p>
+            <p>评论：<input type="text" name="content"></p>
+            <input type="submit" value="提交">
+        </form>
+    </div>
+
+
+    <div class="col-md-5 col-md-offset-1">
+        <h3><span class="glyphicon glyphicon-bullhorn"></span>本文有{{ comments.count }}评论</h3>
+        {% for comment in comments %}
+            <div>
+                <p><strong>{{ comment.observer }}</strong>说：</p>
+                <p style="margin-left: 40px">{{ comment.content }}</p>
+            </div>
+        {% empty %}
+            <p>暂时没有评论</p>
+        {% endfor %}
+    </div>
+    </div>
+    </div>
+
+
+
+
+
+    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+    <script src="{% static 'editor/lib/marked.min.js' %}"></script>
+    <script src="{% static 'editor/lib/prettify.min.js' %}"></script>
+    <script src="{% static 'editor/lib/raphael.min.js' %}"></script>
+    <script src="{% static 'editor/lib/underscore.min.js' %}"></script>
+    <script src="{% static 'editor/lib/sequence-diagram.min.js' %}"></script>
+    <script src="{% static 'editor/lib/flowchart.min.js' %}"></script>
+    <script src="{% static 'editor/lib/jquery.flowchart.min.js' %}"></script>
+    <script src="{% static 'editor/editormd.js' %}"></script>
+    <script type="text/javascript">
+    $(function(){
+        editormd.markdownToHTML("editormd-view",{
+            htmlDecode:'style,script,iframe',
+            emoji:true,
+            taskList:true,
+            tex:true,
+            flowChart:true,
+            sequenceDiagram:true,
+        });
+    });
+    </script>
+{% endblock %}

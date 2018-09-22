@@ -1,0 +1,22 @@
+{% extends 'BackWeb/base/base1.html' %}
+{% block title %}
+    注册
+{% endblock %}
+{% load static %}
+{% block extCss %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="row text-center vertical-middle-sm">
+    <form method="post" action=".">
+        <h1>注册</h1><br>
+        <p>姓名:<input type="text" name="username"></p><br>
+        <p>密码：<input type="password" name="password"></p><br>
+        <p>确认密码：<input type="password" name="password2" ></p><br>
+        <input type="submit" value="提交" class="btn btn-primary btn-lg">
+    </form>
+    </div>
+    <div class="footer">
+      <p><a href="{% url 'back_web:login' %}">去登陆→</a></p><br>
+    </div>
+{% endblock %}

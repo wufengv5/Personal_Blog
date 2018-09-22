@@ -1,0 +1,19 @@
+{% extends 'BackWeb/base/base2.html' %}
+{% load static %}
+
+{% block title %}展示公告{% endblock %}
+
+{% block content %}
+<div>
+    <header>
+        <h1>公告：{{ notice.title }}</h1>
+        <p>作者：{{ user.username }}</p>
+    </header>
+    <div>
+        <textarea>
+            {{ notice.content }}
+        </textarea>
+    </div>
+</div>
+
+{% endblock %}

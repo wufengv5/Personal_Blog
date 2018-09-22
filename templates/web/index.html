@@ -1,0 +1,85 @@
+{% extends 'web/base.html' %}
+{% block title %}
+    博客主页
+{% endblock %}
+{% block content %}
+   <br>
+    <article class="col-md-10 col-md-offset-1">
+  <aside class="l_box">
+      <div class="about_me">
+        <h2>关于我</h2>
+        <ul>
+          <i><img src="../../media/upload/icon.jpg" width="50px" height="100px"></i>
+          <p><b>Fizzyi</b></p>
+        </ul>
+      </div>
+      <div class="wdxc">
+        <h2>我的相册</h2>
+        <ul>
+            {% for article in articles %}
+                {% if article.img %}
+                    <li><a><img src="../../media/{{ article.img }}"></a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+      </div>
+      <div class="search">
+        <form action="" method="post" name="searchform" id="searchform">
+          <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+          <input name="show" value="title" type="hidden">
+          <input name="tempid" value="1" type="hidden">
+          <input name="tbname" value="news" type="hidden">
+          <input name="Submit" class="input_submit" value="搜索" type="submit">
+        </form>
+      </div>
+      <div class="fenlei">
+        <h2>文章分类</h2>
+        <ul>
+            {% for category in categorys %}
+                <li><a href="{% url 'web:category_article' category.id %}"><h3>{{ category.name }}({{ category.blog_article_set.all.count }})</h3></a></li>
+            {% endfor %}
+        </ul>
+      </div>
+{#      <div class="tuijian">#}
+{#        <h2>站长推荐</h2>#}
+{#        <ul>#}
+{#          <li><a href="/">你是什么人便会遇上什么人</a></li>#}
+{#          <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>#}
+{#          <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>#}
+{#          <li><a href="/">个人博客模板《绅士》后台管理</a></li>#}
+{#          <li><a href="/">你是什么人便会遇上什么人</a></li>#}
+{#          <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>#}
+{#          <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>#}
+{#          <li><a href="/">个人博客模板《绅士》后台管理</a></li>#}
+{#        </ul>#}
+{#      </div>#}
+      <div class="links">
+        <h2>友情链接</h2>
+        <ul>
+          <a href="http://www.w3school.com.cn/">W3school</a>
+            <a href="https://www.python.org/">python官网</a>
+            <a href="https://www.djangoproject.com/">Django官网</a>
+        </ul>
+      </div>
+
+  </aside>
+  <main class="r_box">
+{#    <li><i><a href="/"><img src="images/1.jpg"></a></i>#}
+{#      <h3><a href="/">你是什么人便会遇上什么人</a></h3>#}
+{#      <p>有时就为了一句狠话，像心头一口毒钉，永远麻痺着亲密感情交流。恶言，真要慎出，平日多誠心爱语，乃最简易之佈施。</p>#}
+{#    </li>#}
+
+      {% for article in articles %}
+
+          <li>
+              {% if  article.img %}<i><a href=""><img src="../../media/{{ article.img }}" width="200px" height="150px"></a></i>{% endif %}
+            <h3><a href="{% url 'web:show_article' article.id %}">{{ article.title }}</a></h3>
+            <p>{{ article.content }}</p>
+          </li>
+      {% endfor %}
+
+
+  </main>
+</article>
+
+{% endblock %}

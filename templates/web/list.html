@@ -1,0 +1,73 @@
+{% extends 'web/base.html' %}
+{% block title %}
+    笔记日志
+{% endblock %}
+{% block content %}
+<br>
+<article class="col-md-10 col-md-offset-1">
+  <aside class="l_box ">
+ <div class="search">
+      <form action="" method="post" name="searchform" id="searchform">
+        <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+        <input name="show" value="title" type="hidden">
+        <input name="tempid" value="1" type="hidden">
+        <input name="tbname" value="news" type="hidden">
+        <input name="Submit" class="input_submit" value="搜索" type="submit">
+      </form>
+    </div>
+    <div class="fenlei">
+      <h2>文章分类</h2>
+      <ul>
+       {% for category in categorys %}
+                <li><a href="{% url 'web:category_article' category.id %}"><h3>{{ category.name }}({{ category.blog_article_set.all.count }})</h3></a></li>
+       {% endfor %}
+      </ul>
+    </div>
+    <div class="tuijian">
+      <h2>站长推荐</h2>
+      <ul>
+        <li><a href="/">你是什么人便会遇上什么人</a></li>
+        <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
+        <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
+        <li><a href="/">个人博客模板《绅士》后台管理</a></li>
+        <li><a href="/">你是什么人便会遇上什么人</a></li>
+        <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
+        <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
+        <li><a href="/">个人博客模板《绅士》后台管理</a></li>
+      </ul>
+    </div>
+     <div class="tuijian">
+      <h2>点击排行</h2>
+      <ul>
+        <li><a href="/">你是什么人便会遇上什么人</a></li>
+        <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
+        <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
+        <li><a href="/">个人博客模板《绅士》后台管理</a></li>
+        <li><a href="/">你是什么人便会遇上什么人</a></li>
+        <li><a href="/">帝国cms 列表页调用子栏目，没有则不显示栏目名称</a></li>
+        <li><a href="/">第二届 优秀个人博客模板比赛参选活动</a></li>
+        <li><a href="/">个人博客模板《绅士》后台管理</a></li>
+      </ul>
+    </div>
+<div class="cloud">
+      <h2>标签云</h2>
+      <ul>
+        <a href="/">陌上花开</a> <a href="/">校园生活</a> <a href="/">html5</a> <a href="/">SumSung</a> <a href="/">青春</a> <a href="/">温暖</a> <a href="/">阳光</a> <a href="/">三星</a><a href="/">索尼</a> <a href="/">华维荣耀</a> <a href="/">三星</a> <a href="/">索尼</a>
+      </ul>
+    </div>
+
+  </aside>
+  <main class="r_box">
+    {% for article in articles %}
+          <li>
+              {% if  article.img %}<i><a href=""><img src="../../media/{{ article.img }}" width="200px" height="150px"></a></i>{% endif %}
+            <h3><a href="{% url 'web:show_article' article.id %}">{{ article.title }}</a></h3>
+            <p>{{ article.content }}</p>
+          </li>
+      {% endfor %}
+
+    <div class="pagelist"><a class="allpage"><b>99</b></a>&nbsp;&nbsp;<a href="#" class="curPage">1</a>&nbsp;&nbsp;<a href="#" onclick="page(2)">2</a>&nbsp;&nbsp;<a href="#" onclick="page(3)">3</a>&nbsp;&nbsp;<a href="#" onclick="page(4)">4</a>&nbsp;&nbsp;<a href="#" onclick="page(5)">5</a>&nbsp;&nbsp;<a href="#" onclick="page(6)">6</a>&nbsp;&nbsp;<a href="#" onclick="page(7)">7</a>&nbsp;&nbsp;<a href="#" onclick="page(8)">8</a>&nbsp;&nbsp;<a href="#" onclick="page(9)">9</a>&nbsp;&nbsp;<a href="#" onclick="page(2)">下一页</a></div>
+  </main>
+</article>
+
+{% endblock %}
